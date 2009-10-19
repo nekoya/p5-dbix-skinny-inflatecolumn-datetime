@@ -2,7 +2,11 @@ use inc::Module::Install;
 name 'DBIx-Skinny-InflateColumn-DateTime';
 all_from 'lib/DBIx/Skinny/InflateColumn/DateTime.pm';
 
-# requires '';
+requires 'DBIx::Skinny';
+requires 'DateTime';
+requires 'DateTime::Format::Strptime';
+requires 'DateTime::Format::MySQL';
+requires 'DateTime::TimeZone';
 
 tests 't/*.t';
 author_tests 'xt';
