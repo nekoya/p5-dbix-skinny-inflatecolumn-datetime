@@ -14,7 +14,7 @@ note 'inflate/deflate test for created_at';
 
     my $dt = $book->created_at;
     $dt->add(months => 2);
-    $book->set({ created_at => $dt }), 'deflate ok';
+    $book->set({ created_at => $dt });
     isa_ok $book->created_at, 'DateTime';
     is $book->created_at->ymd, '2009-03-01', 'updated';
 
@@ -54,7 +54,7 @@ note 'pre_insert trigger';
     ok $book->created_at->epoch >= $now, 'created_at auto insert ok';
     ok $book->updated_at->epoch >= $now, 'updated_at auto insert ok';
 
-    my $params = {
+    $params = {
         id   => 3,
         name => 'Kate',
     };
