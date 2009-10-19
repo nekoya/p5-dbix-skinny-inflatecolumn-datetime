@@ -91,11 +91,11 @@ That columns will be inflated as DateTime objects.
 
 =head2 pre_insert
 
-Set current timestamp for created_at, created_on, updated_at and updated_on if column exists.
+Set current time stamp for created_at, created_on, updated_at and updated_on if column exists.
 
 =head2 pre_update
 
-Set current timestamp for updated_at and updated_on if column exists.
+Set current time stamp for updated_at and updated_on if column exists.
 
 B<CAUTION:> Following code does not work like you expects.
   my $row = Your::DB->single('table1', { id => 1 });
