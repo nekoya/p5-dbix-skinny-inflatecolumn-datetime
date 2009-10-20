@@ -72,7 +72,7 @@ note 'pre_update trigger';
     my $old_time = $book->updated_at->epoch;
     ok $old_time < $now, 'record updated in the past ';
     $book->update;
-    is $book->updated_at->epoch, $old_time, 'row updated_at not updated';
+    is $book->updated_at->epoch, $now, 'row updated_at was updated';
 
     my $new_book = Mock::DB->single('books', { id => 2 });
     ok $new_book->updated_at->epoch >= $now, 'updated_at auto insert ok';

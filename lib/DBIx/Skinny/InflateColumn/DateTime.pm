@@ -99,19 +99,7 @@ Set current time stamp for created_at, created_on, updated_at and updated_on if 
 
 Set current time stamp for updated_at and updated_on if column exists.
 
-B<CAUTION:> Following code does not work like you expects.
-  my $row = Your::DB->single('table1', { id => 1 });
-  $row->update({ name => 'updated' });
-  print "updated at: " . $row->updated_at;
-
-Because DBIx::Skinny does not fetch values that modified in triggers when update row object.
-
-If you want to get real updated_at value, you should fetch row again.
-
-  my $row = Your::DB->single('table1', { id => 1 });
-  $row->update({ name => 'updated' });
-  $row = Your::DB->single('table1', { id => 1 });
-  print "updated at: " . $row->updated_at;
+Row object's columns will be updated as well.
 
 =head1 AUTHOR
 
