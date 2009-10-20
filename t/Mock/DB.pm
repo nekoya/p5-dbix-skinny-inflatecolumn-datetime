@@ -1,6 +1,6 @@
 package Mock::DB;
 use DBIx::Skinny setup => {
-    dsn => 'dbi:SQLite:test.db',
+    dsn => 'dbi:SQLite:',
     username => '',
     password => '',
 };
