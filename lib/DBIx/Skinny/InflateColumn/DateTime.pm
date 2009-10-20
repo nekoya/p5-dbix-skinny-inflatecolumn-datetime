@@ -81,6 +81,8 @@ DBIx::Skinny::InflateColumn::DateTime provides inflate/deflate settings for *_at
 
 It also set trigger for pre_insert and pre_update.
 
+Its concept refer to DBIx::Class::InflateColumn::DateTime, and some factor from DBIx::Class::InflateColumn::DateTime::Auto (http://blog.hide-k.net/archives/2006/08/dbixclassauto_i.php).
+
 =head1 INFLATE/DEFLATE
 
 This module installs inflate rule for /_(at|on)$/ columns.
@@ -118,6 +120,8 @@ Ryo Miyake E<lt>ryo.studiom {at} gmail.comE<gt>
 =head1 SEE ALSO
 
 DBIx::Skinny, DBIx::Class::InflateColumn::DateTime
+
+http://blog.hide-k.net/archives/2006/08/dbixclassauto_i.php
 
 =head1 AUTHOR
 
