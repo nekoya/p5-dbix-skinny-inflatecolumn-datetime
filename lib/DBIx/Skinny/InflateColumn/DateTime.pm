@@ -50,7 +50,7 @@ __END__
 
 =head1 NAME
 
-DBIx::Skinny::InflateColumn::DateTime - Auto inflate/deflate controller for DBIx::Skinny
+DBIx::Skinny::InflateColumn::DateTime - DateTime inflate/deflate and auto insert update time for DBIx::Skinny
 
 =head1 SYNOPSIS
 
