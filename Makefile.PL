@@ -8,8 +8,7 @@ requires 'DateTime::Format::Strptime';
 requires 'DateTime::Format::MySQL';
 requires 'DateTime::TimeZone';
 
-tests 't/*.t';
-author_tests 'xt';
+author_tests('xt');
 
 build_requires 'Test::More';
 use_test_base;
