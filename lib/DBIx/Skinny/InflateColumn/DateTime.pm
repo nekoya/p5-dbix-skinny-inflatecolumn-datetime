@@ -2,7 +2,7 @@ package DBIx::Skinny::InflateColumn::DateTime;
 
 use strict;
 use warnings;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use DateTime;
 use DateTime::Format::Strptime;
@@ -27,23 +27,6 @@ sub import {
             return DateTime::Format::MySQL->format_datetime($value);
         };
     }
-    my $schema_info = $schema->schema_info;
-    push @{ $schema->common_triggers->{ pre_insert } }, sub {
-        my ($self, $args, $table) = @_;
-        my $columns = $schema_info->{ $table }->{ columns };
-        my $now = DateTime->now(time_zone => $timezone);
-        for my $key ( qw/created_at created_on updated_at updated_on/ ) {
-            $args->{$key} ||= $now if grep {/^$key$/} @$columns;
-        }
-    };
-    push @{ $schema->common_triggers->{ pre_update } }, sub {
-        my ($self, $args, $table) = @_;
-        my $columns = $schema_info->{ $table }->{ columns };
-        my $now = DateTime->now(time_zone => $timezone);
-        for my $key ( qw/updated_at updated_on/ ) {
-            $args->{$key} ||= $now if grep {/^$key$/} @$columns;
-        }
-    };
 }
 
 1;
