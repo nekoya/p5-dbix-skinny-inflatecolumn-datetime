@@ -114,7 +114,7 @@ http://blog.hide-k.net/archives/2006/08/dbixclassauto_i.php
 
 =head1 AUTHOR
 
-Ryo Miyake  C<< <ryo.studiom@gmail.com> >>
+Ryo Miyake  C<< <ryo.studiom __at__ gmail.com> >>
 
 =head1 LICENSE
 
