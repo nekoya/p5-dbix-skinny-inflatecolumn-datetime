@@ -2,7 +2,6 @@ package DBIx::Skinny::InflateColumn::DateTime::Auto;
 
 use strict;
 use warnings;
-our $VERSION = '0.02';
 
 use DateTime;
 use DateTime::Format::Strptime;

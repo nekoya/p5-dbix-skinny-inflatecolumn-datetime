@@ -34,7 +34,7 @@ __END__
 
 =head1 NAME
 
-DBIx::Skinny::InflateColumn::DateTime - DateTime inflate/deflate and auto insert update time for DBIx::Skinny
+DBIx::Skinny::InflateColumn::DateTime - DateTime inflate/deflate settings for DBIx::Skinny
 
 =head1 SYNOPSIS
 
@@ -63,27 +63,13 @@ In your app.
 
 DBIx::Skinny::InflateColumn::DateTime provides inflate/deflate settings for *_at/*_on columns.
 
-It also set trigger for pre_insert and pre_update.
-
-Its concept refer to DBIx::Class::InflateColumn::DateTime, and some factor from DBIx::Class::InflateColumn::DateTime::Auto (http://blog.hide-k.net/archives/2006/08/dbixclassauto_i.php).
+If you want to set created_XX and updated_XX automatically, you can use DBIx::Class::InflateColumn::DateTime::Auto.
 
 =head1 INFLATE/DEFLATE
 
 This module installs inflate rule for /_(at|on)$/ columns.
 
 That columns will be inflated as DateTime objects.
-
-=head1 TRIGGERS
-
-=head2 pre_insert
-
-Set current time stamp for created_at, created_on, updated_at and updated_on if column exists.
-
-=head2 pre_update
-
-Set current time stamp for updated_at and updated_on if column exists.
-
-Row object's columns will be updated as well.
 
 =head1 AUTHOR
 
@@ -92,8 +78,6 @@ Ryo Miyake E<lt>ryo.studiom {at} gmail.comE<gt>
 =head1 SEE ALSO
 
 DBIx::Skinny, DBIx::Class::InflateColumn::DateTime
-
-http://blog.hide-k.net/archives/2006/08/dbixclassauto_i.php
 
 =head1 AUTHOR
 
