@@ -1,6 +1,5 @@
 use strict;
 use lib './t';
-use FindBin::libs;
 use Test::More tests => 3;
 
 use Mock::SQLite;
