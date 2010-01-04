@@ -1,5 +1,9 @@
 Revision history for Perl extension DBIx::Skinny::InflateColumn::DateTime
 
+0.04    Mon Jan 04 09:11:31 2010
+        - upload to CPAN again
+          - 0.03 was deleted
+
 0.03    Tue Dec 23 01:44:50 2009
         - fixed test files
           - removed "use FindBin::libs"
