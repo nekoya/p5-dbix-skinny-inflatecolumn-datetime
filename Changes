@@ -1,5 +1,8 @@
 Revision history for Perl extension DBIx::Skinny::InflateColumn::DateTime
 
+0.05    Mon Jan 11 15:55:07 2010
+        - fixed Makefile.PL problem
+
 0.04    Mon Jan 04 09:11:31 2010
         - upload to CPAN again
           - 0.03 was deleted
