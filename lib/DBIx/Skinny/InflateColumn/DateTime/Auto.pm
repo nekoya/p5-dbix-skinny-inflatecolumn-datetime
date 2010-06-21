@@ -12,8 +12,9 @@ sub import {
     my $class = shift;
     my %args = @_;
     my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
+    my @rules    = @{ $args{rules} || [qw(^.+_at$ ^.+_on$)] };
     my $schema = caller;
-    for my $rule ( qw(^.+_at$ ^.+_on$) ) {
+    for my $rule ( @rules ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {
             my $value = shift or return;
             return $value if ref $value eq 'DateTime';

@@ -13,8 +13,9 @@ sub import {
     my $class = shift;
     my %args = @_;
     my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
+    my @rules    = @{ $args{rules} || [qw(^.+_at$ ^.+_on$)] };
     my $schema = caller;
-    for my $rule ( qw(^.+_at$ ^.+_on$) ) {
+    for my $rule ( @rules ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {
             my $value = shift or return;
             return $value if ref $value eq 'DateTime';
@@ -84,6 +85,17 @@ set this option if you decide other time_zone.
 Example:
 
   use DBIx::Skinny::InflateColumn::DateTime (time_zone => DateTime::TimeZone->new(name => 'Asia/Tokyo'));
+
+
+=head2 rules
+
+default rules is [qw(^.+_at$ ^.+_on$)].
+
+set this option if you decide other rules.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (rules => [qr/^created$/, qr/^updated$/]);
 
 =head1 AUTHOR
 
