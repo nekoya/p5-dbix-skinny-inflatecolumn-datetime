@@ -92,6 +92,29 @@ This module installs inflate rule for /_(at|on)$/ columns.
 
 That columns will be inflated as DateTime objects.
 
+=head1 OPTIONS
+
+=head2 time_zone
+
+default time_zone is 'local'.
+
+set this option if you decide other time_zone.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (time_zone => DateTime::TimeZone->new(name => 'Asia/Tokyo'));
+
+
+=head2 rules
+
+default rules is [qw(^.+_at$ ^.+_on$)].
+
+set this option if you decide other rules.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (rules => [qr/^created$/, qr/^updated$/]);
+
 =head1 TRIGGERS
 
 =head2 pre_insert
