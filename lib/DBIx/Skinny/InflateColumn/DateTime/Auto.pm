@@ -11,8 +11,11 @@ use DateTime::TimeZone;
 sub import {
     my $class = shift;
     my %args = @_;
-    my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
-    my @rules    = @{ $args{rules} || [qr/^.+_at$/, qr/^.+_on$/] };
+    my $timezone          = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
+    my @rules             = @{ $args{rules} || [qr/^.+_at$/, qr/^.+_on$/] };
+    my @auto_insert_rules = @{ $args{auto_insert_rules} || [qr/^created_at$/, qr/^created_on$/, qr/^updated_at$/, qr/^updated_on$/] };
+    my @auto_update_rules = @{ $args{auto_update_rules} || [qr/^updated_at$/, qr/^updated_on$/] };
+
     my $schema = caller;
     for my $rule ( @rules ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {
@@ -34,16 +37,32 @@ sub import {
         my ($self, $args, $table) = @_;
         my $columns = $schema_info->{ $table }->{ columns };
         my $now = DateTime->now(time_zone => $timezone);
-        for my $key ( qw/created_at created_on updated_at updated_on/ ) {
-            $args->{$key} ||= $now if grep {/^$key$/} @$columns;
+
+    COLUMN_LOOP:
+        for my $column ( grep { !$args->{$_} } @{$columns} ) {
+        RULE_LOOP:
+            for my $rule ( @auto_insert_rules ) {
+                if ( $column =~ m/$rule/ ) {
+                    $args->{$column} = $now;
+                    last RULE_LOOP;
+                }
+            }
         }
     };
     push @{ $schema->common_triggers->{ pre_update } }, sub {
         my ($self, $args, $table) = @_;
         my $columns = $schema_info->{ $table }->{ columns };
         my $now = DateTime->now(time_zone => $timezone);
-        for my $key ( qw/updated_at updated_on/ ) {
-            $args->{$key} ||= $now if grep {/^$key$/} @$columns;
+
+    COLUMN_LOOP:
+        for my $column ( grep { !$args->{$_} } @{$columns} ) {
+        RULE_LOOP:
+            for my $rule ( @auto_update_rules ) {
+                if ( $column =~ m/$rule/ ) {
+                    $args->{$column} = $now;
+                    last RULE_LOOP;
+                }
+            }
         }
     };
 }
@@ -104,7 +123,6 @@ Example:
 
   use DBIx::Skinny::InflateColumn::DateTime (time_zone => DateTime::TimeZone->new(name => 'Asia/Tokyo'));
 
-
 =head2 rules
 
 default rules is [qr/^.+_at$/, qr/^.+_on$/].
@@ -115,15 +133,37 @@ Example:
 
   use DBIx::Skinny::InflateColumn::DateTime (rules => [qr/^created$/, qr/^updated$/]);
 
+
+=head2 auto_insert_rules
+
+default rules is [qr/^created_at$/, qr/^created_on$/, qr/^updated_at$/, qr/^updated_on$/].
+
+set this option if you decide other rules.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (auto_insert_rules => [qr/^created$/, qr/^updated$/]);
+
+
+=head2 auto_update_rules
+
+default rules is [qr/^updated_at$/, qr/^updated_on$/].
+
+set this option if you decide other rules.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (auto_insert_rules => [qr/^updated$/]);
+
 =head1 TRIGGERS
 
 =head2 pre_insert
 
-Set current time stamp for created_at, created_on, updated_at and updated_on if column exists.
+Set current time stamp if column match auto_insert_rules and exists.
 
 =head2 pre_update
 
-Set current time stamp for updated_at and updated_on if column exists.
+Set current time stamp if column match auto_update_rules and exists.
 
 Row object's columns will be updated as well.
 
