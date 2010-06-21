@@ -9,7 +9,9 @@ use DateTime::Format::MySQL;
 use DateTime::TimeZone;
 
 sub import {
-    my $timezone = DateTime::TimeZone->new(name => 'local');
+    my $class = shift;
+    my %args = @_;
+    my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
     my $schema = caller;
     for my $rule ( qw(^.+_at$ ^.+_on$) ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {

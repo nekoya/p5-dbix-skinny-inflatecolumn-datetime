@@ -10,7 +10,9 @@ use DateTime::Format::MySQL;
 use DateTime::TimeZone;
 
 sub import {
-    my $timezone = DateTime::TimeZone->new(name => 'local');
+    my $class = shift;
+    my %args = @_;
+    my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
     my $schema = caller;
     for my $rule ( qw(^.+_at$ ^.+_on$) ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {
@@ -70,6 +72,18 @@ If you want to set created_XX and updated_XX automatically, you can use DBIx::Cl
 This module installs inflate rule for /_(at|on)$/ columns.
 
 That columns will be inflated as DateTime objects.
+
+=head1 OPTIONS
+
+=head2 time_zone
+
+default time_zone is 'local'.
+
+set this option if you decide other time_zone.
+
+Example:
+
+  use DBIx::Skinny::InflateColumn::DateTime (time_zone => DateTime::TimeZone->new(name => 'Asia/Tokyo'));
 
 =head1 AUTHOR
 
