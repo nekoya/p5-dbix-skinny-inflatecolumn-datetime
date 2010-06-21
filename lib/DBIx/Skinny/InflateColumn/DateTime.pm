@@ -13,7 +13,7 @@ sub import {
     my $class = shift;
     my %args = @_;
     my $timezone = $args{time_zone} || DateTime::TimeZone->new(name => 'local');
-    my @rules    = @{ $args{rules} || [qw(^.+_at$ ^.+_on$)] };
+    my @rules    = @{ $args{rules} || [qr/^.+_at$/, qr/^.+_on$/] };
     my $schema = caller;
     for my $rule ( @rules ) {
         $schema->inflate_rules->{ $rule }->{ inflate } = sub {
@@ -89,7 +89,7 @@ Example:
 
 =head2 rules
 
-default rules is [qw(^.+_at$ ^.+_on$)].
+default rules is [qr/^.+_at$/, qr/^.+_on$/].
 
 set this option if you decide other rules.
 
