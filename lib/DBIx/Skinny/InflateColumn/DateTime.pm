@@ -97,10 +97,6 @@ Example:
 
   use DBIx::Skinny::InflateColumn::DateTime (rules => [qr/^created$/, qr/^updated$/]);
 
-=head1 AUTHOR
-
-Ryo Miyake E<lt>ryo.studiom {at} gmail.comE<gt>
-
 =head1 SEE ALSO
 
 DBIx::Skinny, DBIx::Class::InflateColumn::DateTime
@@ -108,6 +104,10 @@ DBIx::Skinny, DBIx::Class::InflateColumn::DateTime
 =head1 AUTHOR
 
 Ryo Miyake  C<< <ryo.studiom __at__ gmail.com> >>
+
+=head1 SPECIAL THANKS
+
+nihen : Masahiro Chiba
 
 =head1 LICENSE
 
